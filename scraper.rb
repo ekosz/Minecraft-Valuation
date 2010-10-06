@@ -3,7 +3,7 @@ require 'hpricot'
 require "cgi"
 require "uri"
 require "net/https"
-require "rexml/document"
+require 'xmlsimple'
 require 'yaml'
 require 'pg'
 
@@ -19,16 +19,9 @@ class Scraper
     url = URI.parse("http://api.finance.xaviermedia.com/api/latest.xml")
 
     resp = Net::HTTP.get(url)
-    xml  = REXML::Document.new(resp)
+    xml  = XmlSimple.xml_in(resp)
 
-    xml.elements.each("//exchange_rates/fx") { |el|
-      if el.elements[1].text == "USD"
-        return el.elements[2].text.to_f
-      end
-    }
-
-    return 1.0
-
+    return xml['exchange_rates'][0]['fx'][1]['rate'][0].to_f
   end
 
   def start

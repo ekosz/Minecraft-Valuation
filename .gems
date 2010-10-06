@@ -2,5 +2,4 @@ hpricot
 haml
 sinatra
 pg
-net
-rexml
+xml-simple
