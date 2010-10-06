@@ -64,7 +64,7 @@ class Scraper
 
     @avg = @eu_value #In case one can't retrerive it from the database
 
-    get_last_avg = "SELECT average FROM data ORDER BY oid DESC LIMIT 1"
+    get_last_avg = "SELECT average FROM data ORDER BY timestamp DESC LIMIT 1"
 
     sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average) VALUES ($1, $2, $3, $4)"
 
