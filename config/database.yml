@@ -1,0 +1,4 @@
+adapter:  postgresql
+database: minecraft
+host: localhost
+username: ekoslow

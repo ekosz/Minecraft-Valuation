@@ -1,0 +1,13 @@
+--- 
+- rent: 35
+  office_space: 1500
+  salary: 75000
+  employees: 6
+  misc_sga: 100000
+  networking: 33600
+- top_line: 34574187
+  eu_value: 101814261
+  us_value: 141073840
+  avg: 105478569
+  last_updated: 2010-10-06 11:37:45.672850 -04:00
+  since: 2010-10-05 20:01:32.425832 -04:00
