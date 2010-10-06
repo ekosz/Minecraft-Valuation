@@ -71,13 +71,13 @@ class Scraper
 
     @avg = @eu_value #In case one can't retrerive it from the database
 
-    get_last_avg = "SELECT average FROM data ORDER BY timestamp DESC LIMIT 1"
+    get_last_avg = "SELECT average FROM data ORDER BY id DESC LIMIT 1"
 
     sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average) VALUES ($1, $2, $3, $4)"
 
     db_location = File.dirname(__FILE__) + '/config/database.yml'
     db_config = YAML::load_file(db_location)
-    conn = PGconn.open(db_config)
+    conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
 
     res = conn.exec(get_last_avg)
     @avg = res[0][0].to_i

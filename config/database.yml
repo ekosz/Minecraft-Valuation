@@ -1,4 +1,5 @@
 adapter:  postgresql
 database: minecraft
 host: localhost
-username: ekoslow
+username: postgres
+password: dr4g00n
