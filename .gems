@@ -1,7 +1,6 @@
 hpricot
 haml
 sinatra
-yaml
 pg
 net
 rexml
