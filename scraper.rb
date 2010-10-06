@@ -52,7 +52,7 @@ class Scraper
       salary = data['salary']             #Pretty good salary
       employees = data['employees']       #As Notch has said
       networking = data['networking']     #Monthly cost * Number of months
-      msc_sga = data['misc_sga']          #For things I can't remember
+      misc_sga = data['misc_sga']          #For things I can't remember
     else
       puts "Could not load YAML file"
       return
@@ -71,7 +71,7 @@ class Scraper
 
     @avg = @eu_value #In case one can't retrerive it from the database
 
-    get_last_avg = "SELECT average FROM data ORDER BY id DESC LIMIT 1"
+    get_last_avg = "SELECT average FROM data ORDER BY oid DESC LIMIT 1"
 
     sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average) VALUES ($1, $2, $3, $4)"
 
@@ -80,7 +80,7 @@ class Scraper
     conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
 
     res = conn.exec(get_last_avg)
-    @avg = res[0][0].to_i
+    @avg = res[0]['average'].to_i rescue @eu_value #In case one can't retrerive it from the database
 
     conn.exec(sql_insert,[@top_line, @eu_value, @us_value, ((@eu_value+@avg)/2).to_i])
   end

@@ -22,7 +22,7 @@ def start_up
   db_config = YAML::load_file(db_location)
 
   conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
-  sql = "SELECT * FROM minecraft ORDER BY id DESC LIMIT 1"
+  sql = "SELECT * FROM data ORDER BY oid DESC LIMIT 1"
   values = conn.exec(sql)
 
   eu_value = values[0]['eu_value']
