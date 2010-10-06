@@ -1,4 +1,4 @@
-load "scrapper.rb"
+load "scraper.rb"
 
 @scraper = Scraper.new
 
