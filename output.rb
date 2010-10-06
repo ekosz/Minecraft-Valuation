@@ -19,7 +19,7 @@ def start_up
   constants = YAML::load_file(yml_location)
   
   db_location = File.dirname(__FILE__) + '/config/database.yml'
-  db_config = YAML::load_file(db_location)
+  db_config = YAML::load_file(db_location)['production']
 
   conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
   sql = "SELECT * FROM data ORDER BY oid DESC LIMIT 1"

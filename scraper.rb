@@ -69,7 +69,7 @@ class Scraper
     sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average) VALUES ($1, $2, $3, $4)"
 
     db_location = File.dirname(__FILE__) + '/config/database.yml'
-    db_config = YAML::load_file(db_location)
+    db_config = YAML::load_file(db_location)['production']
     conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
 
     res = conn.exec(get_last_avg)
