@@ -5,6 +5,6 @@ load "scraper.rb"
 @location = File.dirname(__FILE__)
 
 desc "Populates the database with updated valuations every hour"
-task :cron => :enviroment do
+task :cron => :environment do
   @scrapper.go
 end 
