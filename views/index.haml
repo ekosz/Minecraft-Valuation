@@ -5,7 +5,7 @@
 %p Recorded since: #{@since}
 %br
 %a(href='#')
-  #moreinfo Click here for more information
+  #moreinfo Where did this number come from?
 
 #info
   %hr
@@ -46,4 +46,4 @@
   %h4 Total Yearly SG&A -- €#{(@constants['rent'] * @constants['office_space']) + (@constants['salary'] * @constants['employees']) + @constants['networking'] + @constants['legal'] + @constants['supplies'] + @constants['misc_sga']}
   %h3 Multiplier
   %p
-    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €[VALUE]
+    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €[VALUE] (Revenue - SG&A).  

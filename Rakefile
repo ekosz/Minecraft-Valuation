@@ -4,6 +4,6 @@ load "scraper.rb"
 
 desc "Populates the database with updated valuations every hour"
 task :cron do
-  @scrapper.go
+  Scraper.new.go
 end
 
