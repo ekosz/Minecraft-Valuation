@@ -1,5 +1,6 @@
-adapter:  postgresql
-database: minecraft
-host: localhost
-username: postgres
-password: dr4g00n
+production:
+  adapter:  postgresql
+  database: minecraft
+  host: localhost
+  username: postgres
+  password: dr4g00n
