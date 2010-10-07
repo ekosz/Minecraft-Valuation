@@ -33,32 +33,10 @@
     #main
       = yield
     %footer
-      %hr
-      %h2 How is this calculated?
-      %p 
-        Notch has been very public about the amount of sales hes made (Revenue).  Using public data around the web we can do a rough calculation for his costs (SG&A).  Subtract the two and you have the bottom line number (EBITA).  Finally you apply a multiplier which is based off of the Price to Earnings ratio of other comparable companies.  Simple right?
-      %h2 Braking it down
-      %h3 Revenue
-      %p 
-        The Minecraft site has a great 
-        %a(href="http://www.minecraft.net/stats.jsp") stats page
-        where you can go to see just how many copies of Minecraft have been sold in the past 24 hours. Now each copy sell for €10, but Paypal takes €.30 of that.  So really Notch makes €9.70 per copy sold.
-      %p
-        So the math here is ( Number of Copies sold in the past 24 hours ) * ( 9.70 per copy ) * ( Days in a year) = Top-Line Revenue
-      %h3 SG&A
-      %p
-        Here comes the tricky part, finding out the costs of developing and maintaining Minecraft.  Now none of this information is posted by Notch, but a little digging around and we can come up with some close estimates. Here is how I broke it down, and how I found it.
-      %ul
-        %li Rent -- €[VALUE]
-        %li Salaries -- €[VALUE]
-        %li Servers / Bandwith -- €[VALUE]
-        %li Legal -- €[VALUE]
-        %li Office Supplies -- €[VALUE]
-        %li Misalanous Things (aka. too lazy to find out) -- €[VALUE]
-        %li Total -- €[VALUE]
-      %h3 Multiplier
-      %p
-        Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €[VALUE]
+      %h5 
+        A website by 
+        %a(href="http://twitter.com/ekoslow") Eric Koslow
+      
   / ! end of #container
   / Javascript at the bottom for fast page loading
   / Grab Google CDN's jQuery. fall back to local if necessary

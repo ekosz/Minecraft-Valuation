@@ -4,9 +4,9 @@
 
 $(document).ready(function() {
    // do stuff when DOM is ready
-   $("footer").hide();
+   $("#info").hide();
    $("#main > a").click(function() {
-     $('footer').show('slow');
+     $('#info').show('slow');
      return false;
      });
  });

@@ -6,3 +6,44 @@
 %br
 %a(href='#')
   #moreinfo Click here for more information
+
+#info
+  %hr
+  %h2 How is this calculated?
+  %p 
+    Notch has been very public about the amount of sales hes made (Revenue).  Using public data around the web we can do a rough calculation for his costs (SG&A).  Subtract the two and you have the bottom line number (EBITA).  Finally you apply a multiplier which is based off of the Price to Earnings ratio of other comparable companies.  Simple right?
+  %h2 Braking it down
+  %h3 Revenue
+  %p 
+    The Minecraft site has a great 
+    %a(href="http://www.minecraft.net/stats.jsp") stats page
+    where you can go to see just how many copies of Minecraft have been sold in the past 24 hours. Now each copy sell for €10, but Paypal takes €.30 of that.  So really Notch makes €9.70 per copy sold.
+  %p
+    So the math here is ( Number of Copies sold in the past 24 hours ) * ( 9.70 per copy ) * ( Days in a year) = Top-Line Revenue
+  %h3 SG&A
+  %p
+    Here comes the tricky part, finding out the costs of developing and maintaining Minecraft.  Now none of this information is posted by Notch, but a little digging around and we can come up with some close estimates. Here is how I broke it down, and how I found it.
+  %h4 Rent -- €#{@constants['rent'] * @constants['office_space']} 
+  %p
+    The average rent in Stockholm Sweden is €#{@constants['rent']} per sq foot per year[1].  A good medium sized office for 6 people is #{@constants['office_space']} sq ft.  
+  %p
+    So the math is (€#{@constants['rent']} per sq ft per year) * (#{@constants['office_space']} sq ft)
+  %h4 Salaries -- €#{@constants['salary'] * @constants['employees']}
+  %p
+    A great salery for Stockholm is €#{@constants['salary']}[2]. Notch has also stated that hes looking to hire up to 5 more people for his company[3].
+  %p
+    So if he pays them (and himself) top Euro, the math is (€#{@constants['salary']} per employee) * (#{@constants['employees']} employees)
+  %h4 Servers / Bandwith -- €#{@constants['networking']}
+  %p
+    This one was pretty hard so I decided to over estimate.  I figured every player of minecraft downloaded 10MB of data every time they play.  Again grabing from the stats page, I added both the servival and creative players, multiplyed by 10MB and then multiplyed by 30 to get the monthly data usage.  This added up to be 15 TB.  Then using Amazon's S3 price calculator, I punched in 1 TB of storage, 15 TB of download, and 15 TB of upload to the service.  It then punched out the cost.
+  %p
+    So the math is (Number of total players in one day) * (10 MB) * (30 Days) = (Total Monthly data usage)
+  %p
+    And then using Amazon's S3 price calculator (1 TB storage) AND (Total Monthly Usage Download) AND (Total Montly Usage Upload) 
+  %h4 Legal -- €#{@constants['legal']}
+  %h4 Office Supplies -- €#{@constants['supplies']}
+  %h4 Misalanous Things (aka. too lazy to find out) -- €#{@constants['misc_sga']}
+  %h4 Total Yearly SG&A -- €#{(@constants['rent'] * @constants['office_space']) + (@constants['salary'] * @constants['employees']) + @constants['networking'] + @constants['legal'] + @constants['supplies'] + @constants['misc_sga']}
+  %h3 Multiplier
+  %p
+    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €[VALUE]
