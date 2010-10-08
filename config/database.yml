@@ -4,3 +4,9 @@ production:
   host: localhost
   username: postgres
   password: dr4g00n
+development:
+  adapter:  postgresql
+  database: minecraft
+  host: localhost
+  username: postgres
+  password: dr4g00n

@@ -16,7 +16,7 @@ end
 
 def start_up
   yml_location = File.dirname(__FILE__) + '/config/constants.yml'
-  @constants = YAML::load_file(yml_location)
+  constants = YAML::load_file(yml_location)
   
   db_location = File.dirname(__FILE__) + '/config/database.yml'
   db_config = YAML::load_file(db_location)['production']
@@ -30,11 +30,23 @@ def start_up
   avg = values[0]['average']
 
   @last = values[0]['timestamp']
-  @since = @constants['since']
+  @since = constants['since']
 
   @eu_value = '€' + number_with_delimiter(eu_value)
   @us_value = '$' + number_with_delimiter(us_value)
   @avg_value = '€' + number_with_delimiter(avg)
+
+  @rent = constants['rent']
+  @office_space = constants['office_space']
+  @rent_cost = @rent * @office_space
+  @salary = constants['salary']
+  @employees = constants['employees']
+  @salary_cost = @salary * @employees
+  @misc_sga = constants['misc_sga']
+  @networking = constants['networking']
+  @legal = constants['legal']
+  @legal_cost = (@salary_cost * (5.0/3.0)).to_i + @legal
+  @supplies = constants['supplies']
 
 end
 

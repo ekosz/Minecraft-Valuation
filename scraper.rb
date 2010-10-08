@@ -45,6 +45,8 @@ class Scraper
       salary = data['salary']             #Pretty good salary
       employees = data['employees']       #As Notch has said
       networking = data['networking']     #Monthly cost * Number of months
+      legal = data['legal']               #Paying lawyers
+      supplies = data['supplies']         #Office supplies
       misc_sga = data['misc_sga']          #For things I can't remember
     else
       puts "Could not load YAML file"
@@ -54,8 +56,9 @@ class Scraper
 
     office_cost = rent * office_space
     salary_cost = salary * employees
+    payroll_tax = (salary_cost * (5.0/3.0)).to_i
 
-    sga = misc_sga + office_cost + salary_cost + networking
+    sga = misc_sga + office_cost + salary_cost + networking + legal + payroll_tax + supplies
 
     @top_line = (@number * 9.4 * 365).to_i
 
@@ -66,7 +69,7 @@ class Scraper
 
     get_last_avg = "SELECT average FROM data ORDER BY timestamp DESC LIMIT 1"
 
-    sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average) VALUES ($1, $2, $3, $4)"
+    sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average, timestamp) VALUES ($1, $2, $3, $4, now())"
 
     db_location = File.dirname(__FILE__) + '/config/database.yml'
     db_config = YAML::load_file(db_location)['production']
@@ -76,5 +79,7 @@ class Scraper
     @avg = res[0]['average'].to_i rescue @eu_value #In case one can't retrerive it from the database
 
     conn.exec(sql_insert,[@top_line, @eu_value, @us_value, ((@eu_value+@avg)/2).to_i])
+
+    @eu_value
   end
 end
