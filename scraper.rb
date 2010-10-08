@@ -31,7 +31,7 @@ class Scraper
     @text = (doc/"/html/body/div[2]/p").inner_html
 
     if (@text =~ /(\d+) people bought the game/)
-      @number = $1.to_i
+      @players = $1.to_i
     else
       puts "Could not find string"
       return
@@ -60,16 +60,16 @@ class Scraper
 
     sga = misc_sga + office_cost + salary_cost + networking + legal + payroll_tax + supplies
 
-    @top_line = (@number * 9.4 * 365).to_i
+    @top_line = (@players * 9.4 * 365).to_i
 
     @eu_value = (@top_line - sga) * 3 #Times 3 multiplyer
     @us_value = (@eu_value * curr_exchange_rate).to_i 
 
     @avg = @eu_value #In case one can't retrerive it from the database
 
-    get_last_avg = "SELECT average FROM data ORDER BY timestamp DESC LIMIT 1"
+    get_last_avg = "SELECT average FROM data ORDER BY data_id DESC LIMIT 1"
 
-    sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average, timestamp) VALUES ($1, $2, $3, $4, now())"
+    sql_insert = "INSERT INTO data (top_line, eu_value, us_value, average, players, created_at) VALUES ($1, $2, $3, $4, $5, now())"
 
     db_location = File.dirname(__FILE__) + '/config/database.yml'
     db_config = YAML::load_file(db_location)['production']
@@ -78,7 +78,9 @@ class Scraper
     res = conn.exec(get_last_avg)
     @avg = res[0]['average'].to_i rescue @eu_value #In case one can't retrerive it from the database
 
-    conn.exec(sql_insert,[@top_line, @eu_value, @us_value, ((@eu_value+@avg)/2).to_i])
+    conn.exec(sql_insert,[@top_line, @eu_value, @us_value, ((@eu_value+@avg)/2).to_i, @players])
+
+    conn.finish
 
     @eu_value
   end

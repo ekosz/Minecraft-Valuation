@@ -13,13 +13,13 @@
   %p 
     Notch has been very public about the amount of sales hes made (Revenue).  Using public data around the web we can do a rough calculation for his costs (SG&A).  Subtract the two and you have the bottom line number (EBITA).  Finally you apply a multiplier which is based off of the Price to Earnings ratio of other comparable companies.  Simple right?
   %h2 Braking it down
-  %h3 Revenue
+  %h3 Revenue -- €#{@top_line}
   %p 
     The Minecraft site has a great 
     %a(href="http://www.minecraft.net/stats.jsp") stats page
     where you can go to see just how many copies of Minecraft have been sold in the past 24 hours. Now each copy sell for €10, but Paypal takes €.30 of that.  So really Notch makes €9.70 per copy sold.
   %p
-    So the math here is ( Number of Copies sold in the past 24 hours ) * ( 9.70 per copy ) * ( Days in a year) = Top-Line Revenue
+    So the math here is ( Number of Copies sold in the past 24 hours ) * ( 9.70 per copy ) * (365 Days in a year) = Top-Line Revenue
   %h3 SG&A
   %p
     Here comes the tricky part, finding out the costs of developing and maintaining Minecraft.  Now none of this information is posted by Notch, but a little digging around and we can come up with some close estimates. Here is how I broke it down, and how I found it.
@@ -46,10 +46,14 @@
   %p
     The two main legal fees Minecraft face are Perfesioal Fees, and Payroll tax.  I figure lawyers are greedy in Sweden as much as they are in America, so Perfesional Fees are €#{@legal} (over estamate).  Total Payroll Tax in Sweden is around 40%[4] meaning, if you are paying your employees €60, you need to be spending €100, so that €40 is going back to the goverment.
   %p
-    So the math is (Total spending on salaries) * (5/3) + #{@legal}
+    So the math is (#{@salary_cost} total spending on salaries) * (5/3) + #{@legal}
   %h4 Office Supplies -- €#{@supplies}
+  %p
+    Just to make sure we're aren't underestamating, lets say that Notch spends a rediculas amount on buy his employees the most amzing staplers and pens.
   %h4 Misalanous Things (aka. too lazy to find out) -- €#{@misc_sga}
-  %h4 Total Yearly SG&A -- €#{@rent_cost + @salary_cost + @networking + @legal_cost + @supplies + @misc_sga}
+  %p
+    Finally I have a catchall mislanous goods cost, which is ment to cover anything major cost I may and missed, and then some to make sure I get underestamted valution.
+  %h4 Total Yearly SG&A -- €#{@sga}
   %h3 Multiplier
   %p
-    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €[VALUE] (Revenue - SG&A).  
+    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €#{@top_line - @sga} (Revenue - SG&A).  

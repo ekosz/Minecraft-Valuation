@@ -22,14 +22,18 @@ def start_up
   db_config = YAML::load_file(db_location)['production']
 
   conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
-  sql = "SELECT * FROM data ORDER BY timestamp DESC LIMIT 1"
+  sql = "SELECT * FROM data ORDER BY data_id DESC LIMIT 1"
   values = conn.exec(sql)
 
   eu_value = values[0]['eu_value']
   us_value = values[0]['us_value']
   avg = values[0]['average']
+  @players = values[0]['players'].to_i
+  @top_line = values[0]['top_line'].to_i
+  @last = values[0]['created_at']
 
-  @last = values[0]['timestamp']
+  conn.finish
+
   @since = constants['since']
 
   @eu_value = '€' + number_with_delimiter(eu_value)
@@ -47,6 +51,8 @@ def start_up
   @legal = constants['legal']
   @legal_cost = (@salary_cost * (5.0/3.0)).to_i + @legal
   @supplies = constants['supplies']
+
+  @sga = @rent_cost + @salary_cost + @networking + @legal_cost + @supplies + @misc_sga
 
 end
 
