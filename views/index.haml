@@ -1,5 +1,5 @@
 %h1 Current value of Minecraft: #{@eu_value}
-%h5 (#{@us_value}) 
+%h5 (#{@us_value} USD) 
 %p Last updated: #{@last}
 %h2 Average value of Minecraft: #{@avg_value}
 %p Recorded since: #{@since}
@@ -11,49 +11,63 @@
   %hr
   %h2 How is this calculated?
   %p 
-    Notch has been very public about the amount of sales hes made (Revenue).  Using public data around the web we can do a rough calculation for his costs (SG&A).  Subtract the two and you have the bottom line number (EBITA).  Finally you apply a multiplier which is based off of the Price to Earnings ratio of other comparable companies.  Simple right?
-  %h2 Braking it down
+    Notch, and his company Mojang, have been very public about the amount of sales Minecraft has made (Revenue).  Using public data around the web, we can do a rough calculation for his costs (including SG&A).  Subtract the two and one has EBITDA.  Finally one applies a multiplier that is based upon Price to EBITDA ratio of other comparable companies.  Simple right?
+  %h2 Breaking it down
   %h3 Revenue -- €#{@top_line}
   %p 
     The Minecraft site has a great 
     %a(href="http://www.minecraft.net/stats.jsp") stats page
-    where you can go to see just how many copies of Minecraft have been sold in the past 24 hours. Now each copy sell for €10, but Paypal takes €.30 of that.  So really Notch makes €9.70 per copy sold.
+    where one can see just how many copies of Minecraft have been sold in the past 24 hours. Now each copy sells for €10, but Paypal takes €.30 of that.  So really, Mojang makes €9.70 per copy sold.
   %p
-    So the math here is ( Number of Copies sold in the past 24 hours ) * ( 9.70 per copy ) * (365 Days in a year) = Top-Line Revenue
+    So the math here is ( #{@players} copies sold in the past 24 hours ) * ( 9.70 per copy ) * (365 Days in a year)
   %h3 SG&A
   %p
-    Here comes the tricky part, finding out the costs of developing and maintaining Minecraft.  Now none of this information is posted by Notch, but a little digging around and we can come up with some close estimates. Here is how I broke it down, and how I found it.
+    Here comes the tricky part, finding out the costs of developing and maintaining Minecraft.  Now none of this information is posted by Notch, but a little digging around and we can come up with some estimates. Here is how its broken down, and how to find supporting data.
   %h4 Rent -- €#{@rent_cost} 
   %p
     The average rent in Stockholm Sweden is €#{@rent} per sq foot per year[
     %a(href="http://bcg.thetimes.co.uk/Europe/Sweden/Stockholm#Business_costs")1
-    ].  A good medium sized office for 6 people is #{@office_space} sq ft.  
+    ].  A good medium sized office for six people is #{@office_space} sq ft.  
   %p
     So the math is (€#{@rent} per sq ft per year) * (#{@office_space} sq ft)
   %h4 Salaries -- €#{@salary_cost}
   %p
-    A great salery for Stockholm is €#{@salary}[2]. Notch has also stated that hes looking to hire up to 5 more people for his company[3].
+    A great salary for Stockholm is €#{@salary}[
+    %a(href="http://www.glassdoor.com/Salaries/stockholm-salary-SRCH_IL.0,9_IM1136_SDAS.htm") 2
+    ]. Notch has also stated that he's looking to hire up to five more people for his company[
+    %a(href="http://notch.tumblr.com/post/1075326804/hiring-some-people-getting-an-office-and-all-that") 3
+    ].
   %p
-    So if he pays them (and himself) top Euro, the math is (€#{@salary} per employee) * (#{@employees} employees)
-  %h4 Servers / Bandwith -- €#{@networking}
+    So if he pays them (and himself) top salaries, the math is (€#{@salary} per employee) * (#{@employees} employees)
+  %h4 Servers / Bandwidth -- €#{@networking}
   %p
-    This one was pretty hard so I decided to over estimate.  I figured every player of minecraft downloaded 10MB of data every time they play.  Again grabing from the stats page, I added both the servival and creative players, multiplyed by 10MB and then multiplyed by 30 to get the monthly data usage.  This added up to be 15 TB.  Then using Amazon's S3 price calculator, I punched in 1 TB of storage, 15 TB of download, and 15 TB of upload to the service.  It then punched out the cost.
+    This one was pretty hard, so lets over estimate.  We figured every player of Minecraft downloaded 10MB of data every time they play.  Again grabbing from the 
+    %a(href="http://www.minecraft.net/stats.jsp") stats page
+    , we add both the survival and creative players, multiplied by 10MB and then multiplied by 30 to get the monthly data usage.  This added up to be 15 TB.  Then using 
+    %a(href="http://calculator.s3.amazonaws.com/calc5.html") Amazon's S3 price calculator
+    , we punch in 15 TB of storage, 15 TB of download, and 15 TB of upload to the service.  It then punched out the cost.
   %p
     So the math is (Number of total players in one day) * (10 MB) * (30 Days) = (Total Monthly data usage)
   %p
-    And then using Amazon's S3 price calculator (1 TB storage) AND (Total Monthly Usage Download) AND (Total Montly Usage Upload) 
+    And then using Amazon's S3 price calculator (15 TB storage) AND (Total Monthly Usage Download) AND (Total Monthly Usage Upload) * (12 months in a year)
   %h4 Legal -- €#{@legal_cost}
   %p
-    The two main legal fees Minecraft face are Perfesioal Fees, and Payroll tax.  I figure lawyers are greedy in Sweden as much as they are in America, so Perfesional Fees are €#{@legal} (over estamate).  Total Payroll Tax in Sweden is around 40%[4] meaning, if you are paying your employees €60, you need to be spending €100, so that €40 is going back to the goverment.
+    The two main legal fees Minecraft face are Professional Fees, and Payroll tax.  One would figure lawyers are as greedy in Sweden as much as they are in America, so Professional Fees are €#{@legal} (over estimate).  Total Payroll Tax in Sweden is around 40%[
+    %a(href="http://en.wikipedia.org/wiki/Payroll_tax#Sweden") 4
+    ] meaning, if one is paying one's employees €100, one needs to be paying €40 to taxes.
   %p
     So the math is (#{@salary_cost} total spending on salaries) * (5/3) + #{@legal}
   %h4 Office Supplies -- €#{@supplies}
   %p
-    Just to make sure we're aren't underestamating, lets say that Notch spends a rediculas amount on buy his employees the most amzing staplers and pens.
-  %h4 Misalanous Things (aka. too lazy to find out) -- €#{@misc_sga}
+    Just to make sure we aren't underestimating, lets say that Notch spends a ridicules amount on buy his employees the most amazing staplers and pens.
+  %h4 Miscellaneous Things (aka. too lazy to find out) -- €#{@misc_sga}
   %p
-    Finally I have a catchall mislanous goods cost, which is ment to cover anything major cost I may and missed, and then some to make sure I get underestamted valution.
+    Finally we have a catchall miscellaneous cost, which is meant to cover anything major cost we may have missed, to make sure we get an underestimated valuation.
   %h4 Total Yearly SG&A -- €#{@sga}
   %h3 Multiplier
   %p
-    Now that we have the revenue and SG&A we can find the EBITA (Earnings Before Intrest Taxes and Amorization).  In this case the EBITA is €#{@top_line - @sga} (Revenue - SG&A).  
+    Now that we have the revenue and SG&A we can find the EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization).  In this case the EBITDA is €#{@top_line - @sga} (Revenue - SG&A).  Multipliers are a tricky business. Usually based off of similar public company's Price to EBITDA ratios. The multiplier accounts for future growth and future earnings.  Though Mojang has an insane profit margin (#{@top_line - @sga} / #{@top_line}), it is not an annuity based business. Mojang is also a very new company and it is unknown whether the level of growth Minecraft is showing can be sustained.  So again we underestimate and give Mojang a #{@multi}X multiplier.  This is very low for a company, but it will improve with time.  If Mojang can produce another popular and high grossing title, its legitimacy will be proven and its multiplier can one day reach something around 20X like Electronic Arts (in 2005 pre recession)[
+    %a(href="http://nresearch.fr/reports/433.pdf") 5
+    ].
+  %p
+    So the math for total value is (#{@top_line - @sga} EBITDA * #{@multi}X multiplier)

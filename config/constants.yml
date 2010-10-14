@@ -4,7 +4,8 @@ office_space: 1500
 salary: 75000
 employees: 6
 misc_sga: 100000
-networking: 33600
+networking: 46104
 legal: 50000
 supplies: 20000
-since: 2010-10-08
+multi: 5
+since: 2010-10-14
