@@ -70,17 +70,20 @@ end
 set :haml, {:format => :html5 }
 
 get '/' do
+  headers['Cache-Control'] = 'public, max-age=1800'
   start_up
   haml :index
 end
 
 get '/css/style.css' do
   content_type 'text/css', :charset => 'utf-8'
+  headers['Cache-Control'] = 'public, max-age=1800'
   sass :style
 end  
 
 get '/css/handheld.css' do
   content_type 'text/css', :charset => 'utf-8'
+  headers['Cache-Control'] = 'public, max-age=1800'
   sass :handheld
 end
 
