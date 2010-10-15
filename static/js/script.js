@@ -6,7 +6,11 @@ $(document).ready(function() {
    // do stuff when DOM is ready
    $("#info").hide();
    $("#main > a").click(function() {
-     $('#info').slideDown('slow');
-     return false;
-     });
+     if($('#info').is(":hidden")) {
+       $('#info').slideDown('slow');
+       return false;
+     } else {
+       $("#info").hide();
+     }
+   });
  });
