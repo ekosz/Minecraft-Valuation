@@ -55,7 +55,7 @@ def start_up
   ###### CALCULATE VALUATION ######
   @players = values[0]['players'].to_i
   @top_line = (@players * 9.4 * 365).to_i 
-  avg = ((avg_res[0]['avg'].to_f * 9.4 * 365).to_i - @sga) * @multi
+  @avg = ((avg_res[0]['avg'].to_f * 9.4 * 365).to_i - @sga) * @multi
   eu_value = (@top_line - @sga) * @multi
   us_value = (eu_value * values[0]['exchange_rate'].to_f).to_i
   @last = values[0]['created_at']
@@ -66,11 +66,13 @@ def start_up
     data_array << [value['date_part'].to_i*1000, (((value['players'].to_i*9.4*365).to_i-@sga)*@multi)/1000000]
   end
   @js_data = data_array.reverse.inspect
+  @begining = data_array[0][0]
+  @ending = data_array[-1][0] 
 
   ###### MAKE SOME NUMBERS READABLE ########
   @eu_value = '€' + number_with_delimiter(eu_value)
   @us_value = '$' + number_with_delimiter(us_value)
-  @avg_value = '€' + number_with_delimiter(avg)
+  @avg_value = '€' + number_with_delimiter(@avg)
 
 end
 
