@@ -44,6 +44,7 @@
   :javascript
     !window.jQuery && document.write('<script src="js/jquery-1.4.2.min.js"><\/script>')
   %script{:src => "js/plugins.js?v=1"}
+  %script{:src => "js/jquery.flot.min.js?v=1"}
   %script{:src => "js/script.js?v=1"}
   /[if lt IE 7 ]
     <script src="js/dd_belatedpng.js?"></script>
@@ -51,6 +52,14 @@
     \  //fix those png IMGs and .png_bg background-images
     \  DD_belatedPNG.fix('img, .png_bg');
     </script>
+  
+  :javascript
+    $(document).ready(function() {
+      $("#flot > a").click(function() {
+        $.plot($("#flot"), [{label: "Value (Millions)", data: #{@js_data}}], { xaxis: {mode: "time", timeformat: "%m/%d %H:00"} });
+        return false;
+      });
+    });
   /
     asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet
     change the UA-XXXXX-X to be your site's ID

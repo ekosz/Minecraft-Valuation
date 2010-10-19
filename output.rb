@@ -43,7 +43,7 @@ def start_up
 
   conn = PGconn.open(db_config['host'], 5432, nil, nil, db_config['database'], db_config['username'], db_config['password'])
 
-  sql = "SELECT players, exchange_rate, created_at FROM data ORDER BY data_id DESC LIMIT 1"
+  sql = "SELECT players, exchange_rate, created_at, extract(epoch FROM created_at) FROM data ORDER BY data_id DESC LIMIT 720"
 
   sql_avg = "SELECT avg(players) FROM data"
 
@@ -59,6 +59,13 @@ def start_up
   eu_value = (@top_line - @sga) * @multi
   us_value = (eu_value * values[0]['exchange_rate'].to_f).to_i
   @last = values[0]['created_at']
+
+  ###### CREATE DATA FOR JAVASCRIPT GRAPH ######
+  data_array = []
+  values.each do |value|
+    data_array << [value['date_part'].to_i*1000, (((value['players'].to_i*9.4*365).to_i-@sga)*@multi)/1000000]
+  end
+  @js_data = data_array.reverse.inspect
 
   ###### MAKE SOME NUMBERS READABLE ########
   @eu_value = '€' + number_with_delimiter(eu_value)
