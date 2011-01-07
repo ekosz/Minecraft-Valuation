@@ -29,9 +29,9 @@ class Scraper
     ###### PARSE MINECRAFT SITE ######
     doc = open("http://www.minecraft.net/stats.jsp") { |f| Hpricot(f) }
 
-    @text = (doc/"/html/body/div[2]/p").inner_html
+    @text = (doc/"/html/body/div[1]/div[3]/div[1]/div[1]/p[1]").inner_html
 
-    if (@text =~ /(\d+) people bought the game/)
+    if (@text =~ /(\d+) people bought/)
       @players = $1.to_i
     else
       puts "Could not find string"
