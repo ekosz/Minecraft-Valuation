@@ -53,7 +53,7 @@
   :javascript
     $(document).ready(function() {
       $("#flot > a").click(function() {
-        $.plot($("#flot"), [ { label: "Value (Millions)", data: #{@js_data} }, { label: "Average Value", data: [ [#{@begining},#{@avg/1000000}],[#{@ending},#{@avg/1000000}] ] } ], { xaxis: {mode: "time", timeformat: "%m/%d %H:00"} });
+        $.plot($("#flot"), [ { label: "Value (Millions)", data: #{@js_data} }, { label: "Average Value", data: [ [#{@begining},#{@avg/1000000}],[#{@ending},#{@avg/1000000}] ] } ], { xaxis: {mode: "time", timeformat: "%m/%d/%y"} });
         return false;
       });
     });
