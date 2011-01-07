@@ -3,3 +3,4 @@ haml
 sinatra
 pg
 xml-simple
+pony --version 0.3

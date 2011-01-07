@@ -6,6 +6,7 @@ require "net/https"
 require 'xmlsimple'
 require 'yaml'
 require 'pg'
+require 'pony_gmail'
 
 class Scraper
 
@@ -25,7 +26,7 @@ class Scraper
   end
 
   def start
-    
+
     ###### PARSE MINECRAFT SITE ######
     doc = open("http://www.minecraft.net/stats.jsp") { |f| Hpricot(f) }
 
@@ -35,9 +36,22 @@ class Scraper
       @players = $1.to_i
     else
       puts "Could not find string"
+      Pony.mail(:to=>"ekoslow@gmail.com",
+                :from=>"ekoslow@whatsminecraftsvalue.com",
+                :subject=>"The Mincraft Stats Page has changed",
+                :body=>"This is an automated message. Do not reply.",
+                :via => :smtp, :smtp => {
+                  :host       => 'smtp.gmail.com',
+                  :port       => '587',
+                  :user       => 'minecraft.valuation@gmail.com',
+                  :password   => 'thisisplaintext',
+                  :auth       => :plain,
+                  :domain     => "whatsminecraftsvalue.com"
+                }  
+               )
       return
     end
-    
+
     ###### INSERT VARIBLES INTO DATABASE ######
     sql = "INSERT INTO data (players, exchange_rate, created_at) VALUES ($1, $2, now())"
 
