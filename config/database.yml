@@ -3,10 +3,10 @@ production:
   database: minecraft
   host: 127.0.0.1
   username: postgres
-  password: dr4g00n
+  password: ********
 development:
   adapter:  postgresql
   database: minecraft
   host: 127.0.0.1
   username: postgres
-  password: dr4g00n
+  password: ********
