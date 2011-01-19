@@ -6,7 +6,7 @@ require "net/https"
 require 'xmlsimple'
 require 'yaml'
 require 'pg'
-load 'lib/pony_gmail.rb'
+require './lib/pony_gmail.rb'
 
 class Scraper
 
