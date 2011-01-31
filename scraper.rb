@@ -6,7 +6,7 @@ require "net/https"
 require 'xmlsimple'
 require 'yaml'
 require 'pg'
-require './lib/pony_gmail.rb'
+require 'pony'
 
 class Scraper
 
@@ -36,19 +36,15 @@ class Scraper
       @players = $1.to_i
     else
       puts "Could not find string"
-      Pony.mail(:to=>"ekoslow@gmail.com",
-                :from=>"ekoslow@whatsminecraftsvalue.com",
-                :subject=>"The Mincraft Stats Page has changed",
-                :body=>"This is an automated message. Do not reply.",
-                :via => :smtp, :smtp => {
-                  :host       => 'smtp.gmail.com',
-                  :port       => '587',
-                  :user       => 'minecraft.valuation@gmail.com',
-                  :password   => 'thisisplaintext',
-                  :auth       => :plain,
-                  :domain     => "whatsminecraftsvalue.com"
-                }  
-               )
+      Pony.mail(:to => 'ekoslow@gmail.com', :from => 'info@whatsminecraftsvalue.com', :subject => 'Warning!', :body => 'The minecraft stats page has changed!', :via => :smtp, :via_options => {
+        :address        => "smtp.sendgrid.net",
+        :port           => "25",
+        :authentication => :plain,
+        :user_name      => ENV['SENDGRID_USERNAME'],
+        :password       => ENV['SENDGRID_PASSWORD'],
+        :domain         => ENV['SENDGRID_DOMAIN']
+      })
+
       return
     end
 
