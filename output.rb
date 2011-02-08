@@ -29,7 +29,7 @@ def start_up
   @misc_sga = constants['misc_sga']
   @networking = constants['networking']
   @legal = constants['legal']
-  @legal_cost = (@salary_cost * (5.0/3.0)).to_i + @legal
+  @legal_cost = (@salary_cost * (7.0/5.0)).to_i + @legal
   @supplies = constants['supplies']
   @multi = constants['multi']
   @since = constants['since']
@@ -54,8 +54,8 @@ def start_up
 
   ###### CALCULATE VALUATION ######
   @players = values[0]['players'].to_i
-  @top_line = (@players * 9.4 * 365).to_i 
-  @avg = ((avg_res[0]['avg'].to_f * 9.4 * 365).to_i - @sga) * @multi
+  @top_line = (@players * 14.45 * 365).to_i 
+  @avg = ((avg_res[0]['avg'].to_f * 14.45 * 365).to_i - @sga) * @multi
   eu_value = (@top_line - @sga) * @multi
   us_value = (eu_value * values[0]['exchange_rate'].to_f).to_i
   @last = values[0]['created_at']
@@ -63,7 +63,7 @@ def start_up
   ###### CREATE DATA FOR JAVASCRIPT GRAPH ######
   data_array = []
   values.each do |value|
-    data_array << [value['date_part'].to_i*1000, (((value['players'].to_i*9.4*365).to_i-@sga)*@multi)/1000000]
+    data_array << [value['date_part'].to_i*1000, (((value['players'].to_i*14.45*365).to_i-@sga)*@multi)/1000000]
   end
   @js_data = data_array.reverse.inspect
   @begining = data_array[0][0]
